@@ -20,7 +20,24 @@ class AuthHandler():
     pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
     
     def get_password_hash(self, password):
+        """The function that hashes the password
+
+        Args:
+            password (Str): The password in pkain text
+
+        Returns:
+            hashed_password: The password hash
+        """
         return self.pwd_context.hash(password)
 
     def verify_password(self, plain_password, hashed_password):
+        """The function to verify the password based on its hash
+
+        Args:
+            plain_password (str): The password in plain text
+            hashed_password (str): The hash of the password
+
+        Returns:
+            bool: Whether the password and its hash match
+        """
         return self.pwd_context.verify(plain_password, hashed_password)
