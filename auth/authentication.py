@@ -15,6 +15,7 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 
 
 class AuthHandler():
+    """The class that handles authentication for the app"""
     security = HTTPBearer()
     pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
     
