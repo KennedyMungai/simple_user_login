@@ -16,3 +16,16 @@ MYSQL_PORT = os.environ.get("MYSQL_PORT")
 MYSQL_DB = os.environ.get("MYSQL_DB")
 
 engine = create_engine(f'mysql+pymysql://{MYSQL_USERNAME}:{MYSQL_PASSWORD}@{MYSQL_HOST}:{MYSQL_PORT}/{MYSQL_DB}')
+
+Base = declarative_base()
+
+SessionLocal = sessionmaker(autoflush=False, autocommit=False,bind=engine)
+
+
+# Database Dependency
+def get_db():
+    _db = SessionLocal()
+    try:
+        yield _db
+    finally:
+        _db.close()
