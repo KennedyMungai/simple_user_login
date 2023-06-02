@@ -23,7 +23,7 @@ class AuthHandler():
         """The function that hashes the password
 
         Args:
-            password (Str): The password in pkain text
+            password (Str): The password in plain text
 
         Returns:
             hashed_password: The password hash
