@@ -41,3 +41,20 @@ class AuthHandler():
             bool: Whether the password and its hash match
         """
         return self.pwd_context.verify(plain_password, hashed_password)
+    
+    def encode_token(self, user_id):
+        """The function to encode the token for the user
+
+        Args:
+            user_id (The id of the user): The user id
+
+        Returns:
+           str: The jwt
+        """
+        payload = {
+            'exp': datetime.utcnow() + timedelta(days=0, minutes=5),
+            'iat': datetime.utcnow(),
+            'sub': user_id
+        }
+        
+        return jwt.encode(payload, SECRET_KEY, algorithm='HS256')
