@@ -84,3 +84,19 @@ class AuthHandler():
                 status_code=status.HTTP_401_UNAUTHORIZED, 
                 detail="Invalid token"
                 )
+            
+    def auth_wrapper(self, auth: HTTPAuthorizationCredentials = Security(security)):
+        """A function to wrap the authentication
+
+        Args:
+            auth (HTTPAuthorizationCredentials): The authentication credentials
+
+        Raises:
+            HTTPException: A 401 is raised if the token has expired
+            HTTPException: A 401 is raised if the token is invalid
+
+        Returns:
+           str: A string of the user id
+        """
+        return self.decode_token(auth.credentials):
+        
