@@ -4,7 +4,7 @@ from datetime import datetime, timedelta
 
 import jwt
 from dotenv import find_dotenv, load_dotenv
-from fastapi import HTTPException, Security
+from fastapi import HTTPException, Security, status
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from passlib.context import CryptContext
 
@@ -57,3 +57,30 @@ class AuthHandler():
         }
         
         return jwt.encode(payload, SECRET_KEY, algorithm='HS256')
+    
+    def decode_token(self, token: str):
+        """A function to decode the token
+
+        Args:
+            token (str): The token to be decoded
+
+        Raises:
+            HTTPException: A 401 is raised if the token has expired
+            HTTPException: A 401 is raised if the token is invalid
+
+        Returns:
+           str: A string of the user id
+        """
+        try:
+          payload = jwt.decode(token, SECRET_KEY, algorithms=['HS256'])
+          return payload['sub']
+        except jwt.ExpiredSignatureError:
+          raise HTTPException(
+              status_code=status.HTTP_401_UNAUTHORIZED, 
+              detail="The signature has expired"
+              )
+        except jwt.InvalidTokenError:
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED, 
+                detail="Invalid token"
+                )
