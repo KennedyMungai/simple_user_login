@@ -8,7 +8,6 @@ from fastapi import HTTPException, Security
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from passlib.context import CryptContext
 
-
 load_dotenv(find_dotenv())
 
 SECRET_KEY = os.environ.get("SECRET_KEY")
