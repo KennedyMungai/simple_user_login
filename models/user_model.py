@@ -1,5 +1,6 @@
 """The model file for the users"""
 from pydantic import EmailStr
+
 from database.db import Base
 
 
