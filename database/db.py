@@ -2,10 +2,9 @@
 import os
 
 from dotenv import find_dotenv, load_dotenv
+from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
-from sqlalchemy import create_engine
-
 
 load_dotenv(find_dotenv())
 
@@ -24,6 +23,11 @@ SessionLocal = sessionmaker(autoflush=False, autocommit=False,bind=engine)
 
 # Database Dependency
 def get_db():
+    """The database dependency
+
+    Yields:
+        _db: Session
+    """
     _db = SessionLocal()
     try:
         yield _db
